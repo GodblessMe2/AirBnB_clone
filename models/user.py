@@ -6,3 +6,4 @@ class User:
     """Represents a User of the AirBnB project
        Attributes:
     """
+   
