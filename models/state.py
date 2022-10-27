@@ -1,8 +1,11 @@
 #!/usr/bin/python3
 """Defines the user state"""
-from models.state import State
+from models.base_model import BaseModel
 
-class State:
-    """Represents a State of the AirBnB project
-       Attributes:
-    """
+class State(BaseModel):
+   """Represents a State of the AirBnB project
+   Attributes:
+      name (str): The User name
+   """
+
+   name = ""
