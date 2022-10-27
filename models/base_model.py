@@ -3,6 +3,5 @@ import models
 from datetime import datetime
 
 class BaseModel:
-    """Represents a BaseModel of the AirBnB project
-       Attributes:
-    """
+   """Represents a BaseModel of the AirBnB project"""
+   

@@ -1,8 +1,13 @@
 #!/usr/bin/python3
 """Defines the City class"""
-from models.city import City
+from models.base_model import BaseModel
 
-class City:
-    """Represents a City of the AirBnB project
-       Attributes:
-    """
+class City(BaseModel):
+   """Represents a City of the AirBnB project
+      Attributes:
+         state_id (str): The State ID
+         name (str): The name of the city
+   """
+
+   state_id = ""
+   name = ""

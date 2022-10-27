@@ -1,8 +1,29 @@
 #!/usr/bin/python3
-"""Defines the user Place"""
-from models.place import Place
+"""Defines the user Place class"""
+from models.base_model import BaseModel
 
-class Place:
-    """Represents a Place of the AirBnB project
-       Attributes:
-    """
+class Place(BaseModel):
+   """Represents a Place of the AirBnB project
+   Attributes:
+      user_id (str): The User ID
+      city_id (str): The City ID
+      name (str): The name of the place(Location)
+      description (str): The User ID
+      number_rooms (int): The number rooms in the location default: 0
+      number_bathrooms (int): The number bathrooms in the location default: 0
+      max_guest (int): The number of guest that can use the room
+      price_by_night (int): The price of the room default: 0
+      latitude (float): The latitude of the place
+      longitude (float): The longitude of the place
+   """
+
+   user_id = ""
+   city_id = ""
+   name = ""
+   description = ""
+   number_rooms = ""
+   number_bathrooms = ""
+   max_guest = ""
+   price_by_night = ""
+   latitude = ""
+   longitude = ""
