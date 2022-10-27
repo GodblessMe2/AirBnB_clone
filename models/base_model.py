@@ -16,7 +16,7 @@ class BaseModel:
        Attributes:
     """
     def __init__(self, *args, **kwargs):
-        """initialisation of calss BaseModel"""
+        """initializing of class BaseModel"""
         if kwargs:
             for key, value in kwargs.items():
                 if key != "__class__":
@@ -53,5 +53,3 @@ class BaseModel:
 
         dict_new["__class__"] = self.__class__.__name__
         return dict_new
-
-
