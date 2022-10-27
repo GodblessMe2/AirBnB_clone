@@ -5,9 +5,9 @@ from models.base_model import BaseModel
 class City(BaseModel):
    """Represents a City of the AirBnB project
       Attributes:
-         state_id (str): The State ID
+         state_id (int): The State ID
          name (str): The name of the city
    """
 
-   state_id = ""
+   state_id = 0
    name = ""

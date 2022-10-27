@@ -15,15 +15,17 @@ class Place(BaseModel):
       price_by_night (int): The price of the room default: 0
       latitude (float): The latitude of the place
       longitude (float): The longitude of the place
+      place_amenity_id (string): The Amenity ID
    """
 
    user_id = ""
    city_id = ""
    name = ""
    description = ""
-   number_rooms = ""
-   number_bathrooms = ""
-   max_guest = ""
-   price_by_night = ""
-   latitude = ""
-   longitude = ""
+   number_rooms = 0
+   number_bathrooms = 0
+   max_guest = 0
+   price_by_night = 0
+   latitude = 0.0
+   longitude = 0.0
+   place_amenity_id = ""
