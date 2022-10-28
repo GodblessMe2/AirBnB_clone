@@ -85,7 +85,7 @@ class AirBnBCommand(cmd.Cmd):
             print("** Class doesn't exist **")
         else:
             print(eval(new_user[0]().id))
-            #storage.save()
+            storage.save()
     
     def do_EOF(self, arg):
         """EOF signal to exit the program"""
@@ -106,6 +106,73 @@ class AirBnBCommand(cmd.Cmd):
             print("** No instance found **")
         else:
             print(objDict["{}.{}".format(user[0], user[1])])
+
+    def do_destroy(self, arg):
+        """Delete  a class instance of a given ID"""
+        user = parse(arg)
+        objDict = storage.all()
+        if len(user) == 0:
+            print("** class name missing **")
+        elif user[0] not in AirBnBCommand.__classes:
+            print("** Class doesn't exist **")
+        elif len(user) == 1:
+            print("** instance id missing **")
+        elif "{}.{}".format(user[0], user[1]) not in objDict:
+            print("** No instance found **")
+        else:
+            del objDict["{}.{}".format(user[0], user[1])]
+            storage.save()
+        
+    def do_all(self, arg):
+        """Display string representation of all instance of a given class.
+           if no class is specified, display all instantiated objects
+        """
+        usersObj = parse(arg)
+        if len(usersObj) > 0 and usersObj[0] not in AirBnBCommand.__classes:
+            print("** class doesn't exist")
+        else:
+            usersObj = []
+            for user in storage.all().values():
+                if len(usersObj) > 0 and usersObj[0] == user.__class__.__name__:
+                    usersObj.append(user.__str__())
+                elif len(usersObj) == 0:
+                    usersObj.append(user.__str__())
+            print(usersObj)
+    
+    def do_count(self, arg):
+        """Count the number of instance of a given classes"""
+        usersObj = parse(arg)
+        count = 0
+        for user in storage.all().values():
+            count += 1
+        print(count)
+    
+    def do_update(self, arg):
+        """Update a class instance of a given ID by adding or updating
+           a given attribute keys/values pair or dictionary
+        """
+        user = parse(arg)
+        objDict = storage.all()
+        if len(user) == 0:
+            print("** class name missing **")
+        if user[0] not in AirBnBCommand.__classes:
+            print("** Class doesn't exist **")
+        if len(user) == 1:
+            print("** instance id missing **")
+        if "{}.{}".format(user[0], user[1]) not in objDict:
+            print("** No instance found **")
+        if len(user) == 2:
+            print("** Attributes name missing **")
+        if len(arg) == 3:
+            try:
+                type(eval(objDict[2])) != dict
+            except NameError:
+                print("** Value Missing **")
+                return False
+        else:
+            del objDict["{}.{}".format(user[0], user[1])]
+            storage.save()
+
 
 if __name__ == "__main__":
     AirBnBCommand().cmdloop()
