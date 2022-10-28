@@ -71,11 +71,11 @@ class AirBnBCommand(cmd.Cmd):
                     return argDict[command[0]](call)
         print("*** Unknown syntax: {}".format(arg))
         return False
-    
+
     def do_quit(self, arg):
         """Exit the command program"""
         return True
-    
+
     def do_create(self, arg):
         """Create a new class instance for the User and print its Id"""
         new_user = parse(arg)
@@ -86,12 +86,12 @@ class AirBnBCommand(cmd.Cmd):
         else:
             print(eval(new_user[0]().id))
             storage.save()
-    
+
     def do_EOF(self, arg):
         """EOF signal to exit the program"""
         print("")
         return True
-    
+
     def do_show(self, arg):
         """Display the string representation of a class instance of a given id"""
         user = parse(arg)
@@ -122,11 +122,12 @@ class AirBnBCommand(cmd.Cmd):
         else:
             del objDict["{}.{}".format(user[0], user[1])]
             storage.save()
-        
+
     def do_all(self, arg):
         """Display string representation of all instance of a given class.
            if no class is specified, display all instantiated objects
         """
+
         usersObj = parse(arg)
         if len(usersObj) > 0 and usersObj[0] not in AirBnBCommand.__classes:
             print("** class doesn't exist")
@@ -138,7 +139,7 @@ class AirBnBCommand(cmd.Cmd):
                 elif len(usersObj) == 0:
                     usersObj.append(user.__str__())
             print(usersObj)
-    
+
     def do_count(self, arg):
         """Count the number of instance of a given classes"""
         usersObj = parse(arg)
@@ -146,11 +147,12 @@ class AirBnBCommand(cmd.Cmd):
         for user in storage.all().values():
             count += 1
         print(count)
-    
+
     def do_update(self, arg):
         """Update a class instance of a given ID by adding or updating
            a given attribute keys/values pair or dictionary
         """
+
         user = parse(arg)
         objDict = storage.all()
         if len(user) == 0:
@@ -173,6 +175,23 @@ class AirBnBCommand(cmd.Cmd):
             del objDict["{}.{}".format(user[0], user[1])]
             storage.save()
 
+        if len(user) == 4:
+            obj = objDict["{}.{}".format(user[0], user[1])]
+            if user[2] in obj.__class__.__dict__.keys():
+                valType = type(obj.__class__.__dict__[user[2]])
+                obj.__dict__[user[2]] = valType(user[3])
+            else:
+                obj.__dict__[user[2]] = user[3]
+        elif type(eval(user[2])) == dict:
+            obj = objDict["{}.{}".format(user[0], user[1])]
+            for k, v in eval(user[2]).items():
+                if (k in obj.__class__.__dict__.keys() and
+                          type(obj.__class__.__dict__[k]) in {str, int, float}):
+                    valType = type(obj.__class__.__dict__[k])
+                    obj.__dict__[k] = valType(v)
+                else:
+                    obj.__dict__[k] = v
+        storage.save()
 
 if __name__ == "__main__":
     AirBnBCommand().cmdloop()
