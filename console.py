@@ -5,6 +5,7 @@ import imp
 import re
 from shlex import split
 from models.base_model import BaseModel
+from models.user import User
 from models.city import City
 from models.state import State
 from models.place import Place
@@ -36,7 +37,7 @@ class AirBnBCommand(cmd.Cmd):
     Attributes:
         prompt (str): The command prompt for Airbnb console project
     """
-    prompt = "(abnb) "
+    prompt = "(hbnb) "
     __classes = {
         "BaseModel",
         "User",
@@ -52,7 +53,7 @@ class AirBnBCommand(cmd.Cmd):
         pass
 
     def default(self, arg):
-        """Default behavior CMD module"""
+        """Default behavior for CMD module"""
         argDict = {
             "all": self.do_all,
             "show": self.do_show,
@@ -65,7 +66,7 @@ class AirBnBCommand(cmd.Cmd):
             modules = [arg[:match.span()[0]], arg[match.span()[1]:]]
             match = re.search(r"\((.*?)\)", modules[1])
             if match is not None:
-                command =[modules[1][:match.span()[0]], match.group()[1:-1]]
+                command = [modules[1][:match.span()[0]], match.group()[1:-1]]
                 if command[0] in argDict.keys():
                     call = "{} {}".format(modules[0], command[1])
                     return argDict[command[0]](call)
@@ -93,7 +94,9 @@ class AirBnBCommand(cmd.Cmd):
         return True
 
     def do_show(self, arg):
-        """Display the string representation of a class instance of a given id"""
+        """Display the string representation of a
+           class instance of a given id.
+        """
         user = parse(arg)
         objDict = storage.all()
         if len(user) == 0:
@@ -127,10 +130,9 @@ class AirBnBCommand(cmd.Cmd):
         """Display string representation of all instance of a given class.
            if no class is specified, display all instantiated objects
         """
-
         usersObj = parse(arg)
         if len(usersObj) > 0 and usersObj[0] not in AirBnBCommand.__classes:
-            print("** class doesn't exist")
+            print("** class doesn't exist **")
         else:
             usersObj = []
             for user in storage.all().values():
@@ -145,7 +147,8 @@ class AirBnBCommand(cmd.Cmd):
         usersObj = parse(arg)
         count = 0
         for user in storage.all().values():
-            count += 1
+            if usersObj[0] == user.__class__.__dict__:
+                count += 1
         print(count)
 
     def do_update(self, arg):
@@ -157,17 +160,22 @@ class AirBnBCommand(cmd.Cmd):
         objDict = storage.all()
         if len(user) == 0:
             print("** class name missing **")
+            return False
         if user[0] not in AirBnBCommand.__classes:
             print("** Class doesn't exist **")
+            return False
         if len(user) == 1:
             print("** instance id missing **")
+            return False
         if "{}.{}".format(user[0], user[1]) not in objDict:
             print("** No instance found **")
+            return False
         if len(user) == 2:
             print("** Attributes name missing **")
-        if len(arg) == 3:
+            return False
+        if len(user) == 3:
             try:
-                type(eval(objDict[2])) != dict
+                type(eval(user[2])) != dict
             except NameError:
                 print("** Value Missing **")
                 return False
@@ -186,12 +194,13 @@ class AirBnBCommand(cmd.Cmd):
             obj = objDict["{}.{}".format(user[0], user[1])]
             for k, v in eval(user[2]).items():
                 if (k in obj.__class__.__dict__.keys() and
-                          type(obj.__class__.__dict__[k]) in {str, int, float}):
+                        type(obj.__class__.__dict__[k]) in {str, int, float}):
                     valType = type(obj.__class__.__dict__[k])
                     obj.__dict__[k] = valType(v)
                 else:
                     obj.__dict__[k] = v
         storage.save()
+
 
 if __name__ == "__main__":
     AirBnBCommand().cmdloop()
