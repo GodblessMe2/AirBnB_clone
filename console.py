@@ -2,7 +2,9 @@
 """Defines the AirBnB Console"""
 import cmd
 import imp
+import imp
 import re
+from shlex import split
 from shlex import split
 from models.base_model import BaseModel
 from models.user import User
@@ -37,7 +39,7 @@ class AirBnBCommand(cmd.Cmd):
     Attributes:
         prompt (str): The command prompt for Airbnb console project
     """
-    prompt = "(hbnb) "
+    prompt = "(abnb) "
     __classes = {
         "BaseModel",
         "User",
@@ -53,7 +55,7 @@ class AirBnBCommand(cmd.Cmd):
         pass
 
     def default(self, arg):
-        """Default behavior for CMD module"""
+        """Default behavior CMD module"""
         argDict = {
             "all": self.do_all,
             "show": self.do_show,
