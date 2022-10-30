@@ -2,9 +2,7 @@
 """Defines the AirBnB Console"""
 import cmd
 import imp
-import imp
 import re
-from shlex import split
 from shlex import split
 from models.base_model import BaseModel
 from models.user import User
@@ -17,8 +15,8 @@ from models import storage
 
 
 def parse(arg):
-    braces = re.search(r"\{(.*?\)}", arg)
-    bracket = re.search(r"\{(.*?\)}", arg)
+    braces = re.search(r"\{(.*?)\}", arg)
+    bracket = re.search(r"\[(.*?)\]", arg)
     if braces is None:
         if bracket is None:
             return [i.strip(",") for i in split(arg)]
@@ -28,7 +26,7 @@ def parse(arg):
             ret.append(bracket.group())
             return ret
     else:
-        lexer = split(arg[:bracket.span()[0]])
+        lexer = split(arg[:braces.span()[0]])
         ret = [i.strip(",") for i in lexer]
         ret.append(braces.group())
         return ret
@@ -87,7 +85,7 @@ class AirBnBCommand(cmd.Cmd):
         elif new_user[0] not in AirBnBCommand.__classes:
             print("** Class doesn't exist **")
         else:
-            print(eval(new_user[0]().id))
+            print(eval(new_user[0])().id)
             storage.save()
 
     def do_EOF(self, arg):
@@ -122,7 +120,7 @@ class AirBnBCommand(cmd.Cmd):
             print("** Class doesn't exist **")
         elif len(user) == 1:
             print("** instance id missing **")
-        elif "{}.{}".format(user[0], user[1]) not in objDict:
+        elif "{}.{}".format(user[0], user[1]) not in objDict.keys():
             print("** No instance found **")
         else:
             del objDict["{}.{}".format(user[0], user[1])]
@@ -169,7 +167,7 @@ class AirBnBCommand(cmd.Cmd):
         if len(user) == 1:
             print("** instance id missing **")
             return False
-        if "{}.{}".format(user[0], user[1]) not in objDict:
+        if "{}.{}".format(user[0], user[1]) not in objDict.keys():
             print("** No instance found **")
             return False
         if len(user) == 2:

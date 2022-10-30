@@ -50,5 +50,5 @@ class FileStorage:
             for key in new:
                 self.__objects[key] = classes[new[key]
                                               ["__class__"]](**new[key])
-        except:
-            pass
+        except FileNotFoundError:
+            return

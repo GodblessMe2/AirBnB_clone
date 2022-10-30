@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-#!/usr/bin/python3
 """Contains tests for the user Class"""
 
 import unittest
