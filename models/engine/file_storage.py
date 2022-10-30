@@ -6,8 +6,16 @@ Contains FileStorage class
 
 import json
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
-classes = {"BaseModel": BaseModel}
+classes = {"BaseModel" : BaseModel, "User" : User, "State" : State,
+           "City" : City, "Amenity" : Amenity, "Place" : Place,
+           "Review" : Review}
 
 
 class FileStorage:
@@ -40,6 +48,7 @@ class FileStorage:
             with open(self.__file_path, 'r') as f:
                 new = json.load(f)
             for key in new:
-                self.__objects[key] = classe[new[key]["__class__"]](**new[key])
+                self.__objects[key] = classes[new[key]
+                                              ["__class__"]](**new[key])
         except:
             pass

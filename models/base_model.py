@@ -16,21 +16,25 @@ class BaseModel:
        Attributes:
     """
     def __init__(self, *args, **kwargs):
-        """initialisation of calss BaseModel"""
+        """initializing of class BaseModel"""
         if kwargs:
             for key, value in kwargs.items():
                 if key != "__class__":
                     setattr(self, key, value)
-            if hasattr(self, "created-at") and type(self.created_at) is str:
+            if kwargs.get("created_at", None)and type(self.created_at) is str:
                 self.created_at = datetime.strptime(kwargs["created_at"], time)
-            if hasattr(self, "updated-at") and type(self.updated_at) is str:
+            else:
+                self.created_at = datetime.utcnow()
+            if kwargs.get("updated_at", None) and type(self.updated_at) is str:
                 self.updated_at = datetime.strptime(kwargs["updated_at"], time)
+            else:
+                self.updated_at = datetime.utcnow()
+            if kwargs.get("id", None) is None:
+                self.id = str(uuid.uuid4())
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.utcnow()
             self.updated_at = self.created_at
-            models.storage.new(self)
-            models.storage.save()
 
     def __str__(self):
         """string representation of BaseModel"""
@@ -40,6 +44,7 @@ class BaseModel:
     def save(self):
         """updates public instance attribute update_at with curr datetime"""
         self.updated_at = datetime.utcnow()
+        models.storage.new(self)
         models.storage.save()
 
     def to_dict(self):
@@ -53,5 +58,5 @@ class BaseModel:
 
         dict_new["__class__"] = self.__class__.__name__
         return dict_new
-
-
+        dict_new["__class__"] = self.__class__.__name__
+        return dict_new
