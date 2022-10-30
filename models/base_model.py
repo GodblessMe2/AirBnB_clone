@@ -58,3 +58,5 @@ class BaseModel:
 
         dict_new["__class__"] = self.__class__.__name__
         return dict_new
+        dict_new["__class__"] = self.__class__.__name__
+        return dict_new
