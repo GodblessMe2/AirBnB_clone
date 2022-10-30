@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """Defines the AirBnB Console"""
 import cmd
-import imp
 import re
 from shlex import split
 from models.base_model import BaseModel
@@ -37,7 +36,7 @@ class AirBnBCommand(cmd.Cmd):
     Attributes:
         prompt (str): The command prompt for Airbnb console project
     """
-    prompt = "(abnb) "
+    prompt = "(hbnb) "
     __classes = {
         "BaseModel",
         "User",
@@ -70,7 +69,7 @@ class AirBnBCommand(cmd.Cmd):
                 if command[0] in argDict.keys():
                     call = "{} {}".format(modules[0], command[1])
                     return argDict[command[0]](call)
-        print("*** Unknown syntax: {}".format(arg))
+        print(" *** Unknown syntax: {}".format(arg))
         return False
 
     def do_quit(self, arg):
@@ -134,20 +133,20 @@ class AirBnBCommand(cmd.Cmd):
         if len(usersObj) > 0 and usersObj[0] not in AirBnBCommand.__classes:
             print("** class doesn't exist **")
         else:
-            usersObj = []
+            obj1 = []
             for user in storage.all().values():
                 if len(usersObj) > 0 and usersObj[0] == user.__class__.__name__:
-                    usersObj.append(user.__str__())
+                    obj1.append(user.__str__())
                 elif len(usersObj) == 0:
                     usersObj.append(user.__str__())
-            print(usersObj)
+            print(obj1)
 
     def do_count(self, arg):
         """Count the number of instance of a given classes"""
         usersObj = parse(arg)
         count = 0
         for user in storage.all().values():
-            if usersObj[0] == user.__class__.__dict__:
+            if usersObj[0] == user.__class__.__name__:
                 count += 1
         print(count)
 
@@ -179,9 +178,6 @@ class AirBnBCommand(cmd.Cmd):
             except NameError:
                 print("** Value Missing **")
                 return False
-        else:
-            del objDict["{}.{}".format(user[0], user[1])]
-            storage.save()
 
         if len(user) == 4:
             obj = objDict["{}.{}".format(user[0], user[1])]
