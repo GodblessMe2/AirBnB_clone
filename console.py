@@ -138,7 +138,7 @@ class AirBnBCommand(cmd.Cmd):
                 if len(usersObj) > 0 and usersObj[0] == user.__class__.__name__:
                     obj1.append(user.__str__())
                 elif len(usersObj) == 0:
-                    usersObj.append(user.__str__())
+                    obj1.append(user.__str__())
             print(obj1)
 
     def do_count(self, arg):
@@ -158,13 +158,13 @@ class AirBnBCommand(cmd.Cmd):
         user = parse(arg)
         objDict = storage.all()
         if len(user) == 0:
-            print("** class name missing **")
+            print("** Class name missing **")
             return False
         if user[0] not in AirBnBCommand.__classes:
             print("** Class doesn't exist **")
             return False
         if len(user) == 1:
-            print("** instance id missing **")
+            print("** Instance id missing **")
             return False
         if "{}.{}".format(user[0], user[1]) not in objDict.keys():
             print("** No instance found **")
@@ -196,7 +196,6 @@ class AirBnBCommand(cmd.Cmd):
                 else:
                     obj.__dict__[k] = v
         storage.save()
-
 
 if __name__ == "__main__":
     AirBnBCommand().cmdloop()
