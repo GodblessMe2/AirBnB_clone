@@ -2,6 +2,7 @@
 """Defines the User details"""
 from models.base_model import BaseModel
 
+
 class User(BaseModel):
    """Represents a User of the AirBnB project
    Attributes:
@@ -14,5 +15,4 @@ class User(BaseModel):
    first_name = ""
    last_name = ""
    email = ""
-   password = ""
-   
+   password = " "
