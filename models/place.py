@@ -2,6 +2,7 @@
 """Defines the user Place class"""
 from models.base_model import BaseModel
 
+
 class Place(BaseModel):
    """Represents a Place of the AirBnB project
    Attributes:

@@ -2,6 +2,7 @@
 """Defines the user Review"""
 from models.base_model import BaseModel
 
+
 class Review(BaseModel):
    """Represents a Review of the AirBnB project
       Attributes:
