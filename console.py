@@ -2,6 +2,8 @@
 """Defines the AirBnB Console"""
 import cmd
 import re
+import os
+import sys
 from shlex import split
 from models.base_model import BaseModel
 from models.user import User
@@ -196,6 +198,7 @@ class AirBnBCommand(cmd.Cmd):
                 else:
                     obj.__dict__[k] = v
         storage.save()
+
 
 if __name__ == "__main__":
     AirBnBCommand().cmdloop()
