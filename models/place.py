@@ -4,8 +4,8 @@ from models.base_model import BaseModel
 
 
 class Place(BaseModel):
-    """Represents a Place of the AirBnB project
-    Attributes:
+   """Represents a Place of the AirBnB project
+   Attributes:
       user_id (str): The User ID
       city_id (str): The City ID
       name (str): The name of the place(Location)
@@ -17,16 +17,16 @@ class Place(BaseModel):
       latitude (float): The latitude of the place
       longitude (float): The longitude of the place
       place_amenity_id (string): The Amenity ID
-    """
+   """
 
-    user_id = ""
-    city_id = ""
-    name = ""
-    description = ""
-    number_rooms = 0
-    number_bathrooms = 0
-    max_guest = 0
-    price_by_night = 0
-    latitude = 0.0
-    longitude = 0.0
-    place_amenity_id = ""
+   user_id = ""
+   city_id = ""
+   name = ""
+   description = ""
+   number_rooms = 0
+   number_bathrooms = 0
+   max_guest = 0
+   price_by_night = 0
+   latitude = 0.0
+   longitude = 0.0
+   amenity_ids = []

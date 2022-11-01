@@ -52,7 +52,7 @@ class AirBnBCommand(cmd.Cmd):
     def emptyline(self):
         """Return nothing when an empty line is receive"""
         pass
-
+    
     def default(self, arg):
         """Default behavior CMD module"""
         argDict = {
@@ -86,8 +86,8 @@ class AirBnBCommand(cmd.Cmd):
         elif new_user[0] not in AirBnBCommand.__classes:
             print("** class doesn't exist **")
         else:
-            print(eval(new_user[0])().id)
-            storage.save()
+            eval(new_user[0])().id
+        storage.save()
 
     def do_EOF(self, arg):
         """EOF signal to exit the program"""
@@ -198,6 +198,7 @@ class AirBnBCommand(cmd.Cmd):
                 else:
                     obj.__dict__[k] = v
         storage.save()
+
 
 
 if __name__ == "__main__":
