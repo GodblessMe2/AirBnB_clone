@@ -2,8 +2,6 @@
 """
 Contains FileStorage class
 """
-
-
 import json
 from models.base_model import BaseModel
 from models.user import User
@@ -12,6 +10,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
+
 
 classes = {"BaseModel" : BaseModel, "User" : User, "State" : State,
            "City" : City, "Amenity" : Amenity, "Place" : Place,
@@ -36,11 +35,10 @@ class FileStorage:
 
     def save(self):
         """serialize __objects to the JSON file"""
-        json_obj = {}
-        for key in self.__objects:
-            json_obj[key] = self.__objects[key].to_dict()
+        json_obj = FileStorage.__objects
+        json_objs = {obj: json_obj[obj].to_dict() for obj in json_obj.keys()}
         with open(self.__file_path, 'w') as f:
-            json.dump(json_obj, f)
+            json.dump(json_objs, f)
 
     def reload(self):
         """deserialize JSON file to __objects"""
