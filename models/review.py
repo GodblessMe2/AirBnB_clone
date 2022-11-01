@@ -11,6 +11,6 @@ class Review(BaseModel):
          text (str): The text review after using the service
     """
 
-   user_id = 0
-   place_id = 0
-   text = ""
+    user_id = 0
+    place_id = 0
+    text = ""
