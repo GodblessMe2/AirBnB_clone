@@ -137,8 +137,7 @@ class AirBnBCommand(cmd.Cmd):
         else:
             obj1 = []
             for user in storage.all().values():
-                if len(usersObj) > 0 and usersObj[0] ==
-                user.__class__.__name__:
+                if len(usersObj) > 0 and usersObj[0] == user.__class__.__name__:
                     obj1.append(user.__str__())
                 elif len(usersObj) == 0:
                     obj1.append(user.__str__())
