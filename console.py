@@ -86,8 +86,9 @@ class AirBnBCommand(cmd.Cmd):
         elif new_user[0] not in AirBnBCommand.__classes:
             print("** class doesn't exist **")
         else:
-            eval(new_user[0])().id
-        storage.save()
+            obj = eval(new_user[0])()
+            obj.save()
+            print(obj.id)
 
     def do_EOF(self, arg):
         """EOF signal to exit the program"""
