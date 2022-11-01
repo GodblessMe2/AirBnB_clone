@@ -38,7 +38,7 @@ class AirBnBCommand(cmd.Cmd):
     Attributes:
         prompt (str): The command prompt for Airbnb console project
     """
-    prompt = "(hbnb) "
+    prompt = "(hbnb)"
     __classes = {
         "BaseModel",
         "User",
@@ -75,7 +75,7 @@ class AirBnBCommand(cmd.Cmd):
         return False
 
     def do_quit(self, arg):
-        """Exit the command program"""
+        """Quit command to exit the program"""
         return True
 
     def do_create(self, arg):
@@ -84,7 +84,7 @@ class AirBnBCommand(cmd.Cmd):
         if len(new_user) == 0:
             print("** class name missing **")
         elif new_user[0] not in AirBnBCommand.__classes:
-            print("** Class doesn't exist **")
+            print("** class doesn't exist **")
         else:
             print(eval(new_user[0])().id)
             storage.save()
@@ -103,11 +103,11 @@ class AirBnBCommand(cmd.Cmd):
         if len(user) == 0:
             print("** class name missing **")
         elif user[0] not in AirBnBCommand.__classes:
-            print("** Class doesn't exist **")
+            print("** class doesn't exist **")
         elif len(user) == 1:
             print("** instance id missing **")
         elif "{}.{}".format(user[0], user[1]) not in objDict:
-            print("** No instance found **")
+            print("** no instance found **")
         else:
             print(objDict["{}.{}".format(user[0], user[1])])
 
@@ -118,11 +118,11 @@ class AirBnBCommand(cmd.Cmd):
         if len(user) == 0:
             print("** class name missing **")
         elif user[0] not in AirBnBCommand.__classes:
-            print("** Class doesn't exist **")
+            print("** class doesn't exist **")
         elif len(user) == 1:
             print("** instance id missing **")
         elif "{}.{}".format(user[0], user[1]) not in objDict.keys():
-            print("** No instance found **")
+            print("** no instance found **")
         else:
             del objDict["{}.{}".format(user[0], user[1])]
             storage.save()
@@ -160,25 +160,25 @@ class AirBnBCommand(cmd.Cmd):
         user = parse(arg)
         objDict = storage.all()
         if len(user) == 0:
-            print("** Class name missing **")
+            print("** class name missing **")
             return False
         if user[0] not in AirBnBCommand.__classes:
-            print("** Class doesn't exist **")
+            print("** class doesn't exist **")
             return False
         if len(user) == 1:
-            print("** Instance id missing **")
+            print("** instance id missing **")
             return False
         if "{}.{}".format(user[0], user[1]) not in objDict.keys():
-            print("** No instance found **")
+            print("** no instance found **")
             return False
         if len(user) == 2:
-            print("** Attributes name missing **")
+            print("** attribute name missing **")
             return False
         if len(user) == 3:
             try:
                 type(eval(user[2])) != dict
             except NameError:
-                print("** Value Missing **")
+                print("** value missing **")
                 return False
 
         if len(user) == 4:
