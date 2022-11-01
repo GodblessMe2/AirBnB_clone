@@ -10,4 +10,3 @@ class Amenity(BaseModel):
          amenity_place_id (string): The Place ID
    """
     name = ""
-    amenity_place_id = ""
