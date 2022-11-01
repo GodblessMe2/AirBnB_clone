@@ -12,7 +12,7 @@ module_doc = models.amenity.__doc__
 
 
 class TestStateDoc(unittest.TestCase):
-    """To check doxumentation"""
+    """To check documentation"""
     @classmethod
     def setUpClass(self):
         """docstring test"""
