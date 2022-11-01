@@ -4,9 +4,9 @@ from models.base_model import BaseModel
 
 
 class State(BaseModel):
-   """Represents a State of the AirBnB project
-   Attributes:
+    """Represents a State of the AirBnB project
+    Attributes:
       name (str): The User name
-   """
+    """
 
-   name = ""
+    name = ""
