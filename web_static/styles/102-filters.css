@@ -1,0 +1,13 @@
+.locations {
+    width: 30%;
+}
+
+.amenities {
+    width: 30%;
+}
+
+button {
+    font-size: 14px;
+    height: 35px;
+    top: 18px;
+}
